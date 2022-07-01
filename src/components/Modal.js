@@ -1,8 +1,13 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
+// import { toast } from 'react-toastify';
 const Modal = () => {
     const { register, formState: { errors }, handleSubmit } = useForm();
-    const onSubmit = (data) => {
+    const navigate = useNavigate();
+
+
+    const onSubmit = (data, refetch) => {
             const name = data.name;
             const email = data.email;
             const phone = data.phone;
@@ -18,8 +23,12 @@ const Modal = () => {
         })
         .then(res => res.json())
         .then(data => {
+            // toast.success(`Successfully Add New Bill`);
+            refetch();
             console.log(data);
         })
+
+        navigate('/paidTotal');
 
     }
     return (

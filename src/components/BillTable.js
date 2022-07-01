@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+
 
 const BillTable = () => {
     const [bill, setBill] = useState([]);
@@ -7,12 +9,34 @@ const BillTable = () => {
         fetch('http://localhost:5000/bill')
             .then(res => res.json())
             .then(data => setBill(data))
-    }, [])
+    }, []);
+    const handleDelete = (id) => {
+        const proceed = window.confirm('Are you sure?')
+        if (proceed) {
+            const url = `http://localhost:5000/bill/${id}`
+            console.log(url);
+
+            fetch(url, {
+                method: 'DELETE'
+            })
+                .then(res => res.json())
+                .then(data => {
+                    // console.log(data);
+                    const remaining = bill.filter(bills=> bills._id !== id)
+                    setBill(remaining);
+                    // toast.success(`Successfully data delete`);
+                    // alert('Bill Data  Edit successfully!!!');
+
+                    // refetch();
+                })
+
+        }
+    }
     return (
-        <div className='m-10 bg-slate-500 '>
-            <h1>Bill table {setBill.length}</h1>
-            <div class="overflow-x-auto bg-slate-500 ">
-                <table class="table w-full bg-slate-500 ">
+        <div className='m-10 bg-slate-500 p-5 rounded-md'>
+            
+            <div class="overflow-x-auto  ">
+                <table class="table w-full  ">
 
                     <thead>
                         <tr>
@@ -21,6 +45,7 @@ const BillTable = () => {
                             <th>Email</th>
                             <th>Phone</th>
                             <th>Paid Amount</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -32,6 +57,12 @@ const BillTable = () => {
                                 <td>{bills.email}</td>
                                 <td>{bills.phone}</td>
                                 <td>{bills.amount}</td>
+                                <td>
+                                    <Link to={`/editBill/${bills._id}`} className='btn btn-success btn-sm mr-3' >Edit</Link>
+                                {/* <button >Edit</button> */}
+                                <button onClick={() => handleDelete(bills._id)} className='btn btn-error btn-sm'>Delete</button>
+                                </td>
+                                                                                         
                             </tr>
                             )
                         }
