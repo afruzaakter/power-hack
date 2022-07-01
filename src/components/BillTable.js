@@ -1,19 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import Loading from './Loading';
+import Pagination from './Pagination';
 
 
 const BillTable = () => {
     const [bill, setBill] = useState([]);
+    
     console.log(bill);
+
     useEffect(() => {
-        fetch('http://localhost:5000/bill')
+        fetch('https://arrogant-minister-82959.herokuapp.com/bill')
             .then(res => res.json())
             .then(data => setBill(data))
     }, []);
     const handleDelete = (id) => {
         const proceed = window.confirm('Are you sure?')
         if (proceed) {
-            const url = `http://localhost:5000/bill/${id}`
+            const url = `https://arrogant-minister-82959.herokuapp.com/bill/${id}`
             console.log(url);
 
             fetch(url, {
@@ -71,6 +75,7 @@ const BillTable = () => {
 
 
                     </tbody>
+                    <Pagination></Pagination>
                 </table>
             </div>
         </div>

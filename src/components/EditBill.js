@@ -1,10 +1,14 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
+import Loading from './Loading';
 const EditBill = () => {
-    const { register, formState: { errors }, handleSubmit } = useForm();
+    const { register, formState: { errors, loading },  handleSubmit } = useForm();
     const {id} = useParams();
     const navigate = useNavigate();
+    if(loading){
+        return<Loading></Loading>
+    }
     const onSubmit = (data) =>{
         // console.log(data);
         const name = data.name;
@@ -12,7 +16,7 @@ const EditBill = () => {
         const phone = data.phone;
         const amount = data.amount;
         const update = {name,email,phone,amount}
-        const url = `http://localhost:5000/bill/${id}`;
+        const url = `https://arrogant-minister-82959.herokuapp.com/bill/${id}`;
     // console.log(url);
 
     fetch(url, {

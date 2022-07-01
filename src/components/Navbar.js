@@ -7,6 +7,8 @@ const Navbar = () => {
 
       
         <li className='mr-2 font-bold text-primary'><NavLink to="paidTotal">Paid Total: 0</NavLink></li>
+      
+        <li className='mr-2 font-bold text-primary'><NavLink to="login">Login</NavLink></li>
 
 
 

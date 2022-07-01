@@ -14,7 +14,7 @@ const Modal = () => {
             const amount = data.amount;
             const user = {name,email,phone,amount}
               console.log(user);
-        fetch('http://localhost:5000/bill',{
+        fetch('https://arrogant-minister-82959.herokuapp.com/bill',{
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -34,7 +34,7 @@ const Modal = () => {
     return (
         <div>
 
-            <label for="my-modal" class="btn modal-button">Add New Bill</label>
+            <label for="my-modal" class="btn modal-button btn-success">Add New Bill</label>
             <input type="checkbox" id="my-modal" class="modal-toggle" />
             <div class="modal">
                 <div class="modal-box">
